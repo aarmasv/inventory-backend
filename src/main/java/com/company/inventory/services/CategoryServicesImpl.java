@@ -128,4 +128,23 @@ public class CategoryServicesImpl implements ICategoryService{
 
 	}
 
+	@Override
+	@Transactional
+	public ResponseEntity<CategoryResponseREST> deleteById(Long id) {
+		// TODO Auto-generated method stub
+		CategoryResponseREST response = new CategoryResponseREST();
+		
+		try {
+			categoryDao.deleteById(id);
+			response.setMedatada("respuesta ok", "00", "Categoria eliminada");
+		}catch (Exception e) {
+			// TODO: handle exception
+			response.setMedatada("Response no ok", "-1", "Error al eliminar");
+			e.getStackTrace();
+			return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.OK);
+	
+	}
+
 }
