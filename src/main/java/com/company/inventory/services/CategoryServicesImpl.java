@@ -26,10 +26,10 @@ public class CategoryServicesImpl implements ICategoryService{
 		try {
 			List<Category> category = (List<Category>) categoryDao.findAll();
 			response.getCategoryResponse().setCategory(category);
-			response.setMedatada("Response ok", "00", "Respuesta exitosa");
+			response.setMetadata("Response ok", "00", "Respuesta exitosa");
 		}catch (Exception e) {
 			// TODO: handle exception
-			response.setMedatada("Response no ok", "-1", "Error");
+			response.setMetadata("Response no ok", "-1", "Error");
 			e.getStackTrace();
 			return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -48,14 +48,14 @@ public class CategoryServicesImpl implements ICategoryService{
 			if(category.isPresent()) {
 				list.add(category.get());
 				response.getCategoryResponse().setCategory(list);
-				response.setMedatada("Response ok", "00", "Categoría encontrada");
+				response.setMetadata("Response ok", "00", "Categoría encontrada");
 			}else {
-				response.setMedatada("Response no ok", "-1", "No se encontró la categoria por id");
+				response.setMetadata("Response no ok", "-1", "No se encontró la categoria por id");
 				return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.NOT_FOUND);
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
-			response.setMedatada("Response no ok", "-1", "Error categoria por id");
+			response.setMetadata("Response no ok", "-1", "Error categoria por id");
 			e.getStackTrace();
 			return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -74,14 +74,14 @@ public class CategoryServicesImpl implements ICategoryService{
 			if(categorySaved != null) {
 				list.add(categorySaved);
 				response.getCategoryResponse().setCategory(list);
-				response.setMedatada("Response ok", "00", "Categoría guardada");
+				response.setMetadata("Response ok", "00", "Categoría guardada");
 			}else {
-				response.setMedatada("Response no ok", "-1", "Error al grabar la categoria");
+				response.setMetadata("Response no ok", "-1", "Error al grabar la categoria");
 				return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.BAD_REQUEST);
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
-			response.setMedatada("Response no ok", "-1", "Error");
+			response.setMetadata("Response no ok", "-1", "Error");
 			e.getStackTrace();
 			return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -108,19 +108,19 @@ public class CategoryServicesImpl implements ICategoryService{
 				if(categoryToupdate!=null) {
 					list.add(categoryToupdate);
 					response.getCategoryResponse().setCategory(list);
-					response.setMedatada("Response ok", "00", "Categoría actualizada");
+					response.setMetadata("Response ok", "00", "Categoría actualizada");
 				}else {
-					response.setMedatada("Response no ok", "-1", "Error al actualizar la categoria");
+					response.setMetadata("Response no ok", "-1", "Error al actualizar la categoria");
 					return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.BAD_REQUEST);
 				}
 			}else {
-				response.setMedatada("Response no ok", "-1", "Error al encontrar la categoria");
+				response.setMetadata("Response no ok", "-1", "Error al encontrar la categoria");
 				return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.NOT_FOUND);
 			}
 			
 		}catch (Exception e) {
 			// TODO: handle exception
-			response.setMedatada("Response no ok", "-1", "Error");
+			response.setMetadata("Response no ok", "-1", "Error");
 			e.getStackTrace();
 			return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -136,10 +136,10 @@ public class CategoryServicesImpl implements ICategoryService{
 		
 		try {
 			categoryDao.deleteById(id);
-			response.setMedatada("respuesta ok", "00", "Categoria eliminada");
+			response.setMetadata("respuesta ok", "00", "Categoria eliminada");
 		}catch (Exception e) {
 			// TODO: handle exception
-			response.setMedatada("Response no ok", "-1", "Error al eliminar");
+			response.setMetadata("Response no ok", "-1", "Error al eliminar");
 			e.getStackTrace();
 			return new ResponseEntity<CategoryResponseREST>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
