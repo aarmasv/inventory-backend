@@ -167,4 +167,52 @@ public class ProductServicesImpl implements IProductServices {
 		}
 		return new ResponseEntity<ProductResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<ProductResponseRest> update(Product product, Long categoryId, Long id) {
+		// TODO Auto-generated method stub
+		ProductResponseRest response = new ProductResponseRest();
+		List<Product> list = new ArrayList<>();
+		try {
+			Optional<Category> category = categoryDao.findById(categoryId);
+			if(category.isPresent()) {
+				product.setCategory(category.get());
+			}else {
+				response.setMetadata("Error", "-1", "Categoría no encontrada");
+				return new ResponseEntity<ProductResponseRest>(response, HttpStatus.NOT_FOUND);
+			}
+			
+			Optional<Product> productSearch = productDao.findById(id);
+			if(productSearch.isPresent()) {
+				productSearch.get().setName(product.getName());
+				productSearch.get().setCategory(product.getCategory());
+				productSearch.get().setPrice(product.getPrice());
+				productSearch.get().setQuantity(product.getQuantity());
+				productSearch.get().setPicture(product.getPicture());
+				
+				Product productToUpdate= productDao.save(productSearch.get());
+				
+				if(productToUpdate!=null) {
+					list.add(productToUpdate);
+					response.getProduct().setProducts(list);
+					response.setMetadata("OK", "00", "Producto actualizado");
+					}	
+				else {
+					response.setMetadata("Error", "-1", "Producto no guardado");
+					return new ResponseEntity<ProductResponseRest>(response, HttpStatus.BAD_REQUEST);
+				}
+				
+			}else {
+				response.setMetadata("Error", "-1", "Producto no encontrado");
+				return new ResponseEntity<ProductResponseRest>(response, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			e.getStackTrace();
+			response.setMetadata("Error", "-1", "Error al actualizar producto");
+			return new ResponseEntity<ProductResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<ProductResponseRest>(response, HttpStatus.OK);
+	}
 }
