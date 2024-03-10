@@ -43,7 +43,7 @@ public class ProductRestController {
 	 * @return
 	 * @throws IOException
 	 */
-	@PostMapping("/prodcuts")
+	@PostMapping("/products")
 	public ResponseEntity<ProductResponseRest> save(
 			@RequestParam("picture") MultipartFile picture,
 			@RequestParam("name") String name,
@@ -90,7 +90,7 @@ public class ProductRestController {
 		return response;
 	}
 	
-	@PutMapping("/prodcuts/{id}")
+	@PutMapping("/products/{id}")
 	public ResponseEntity<ProductResponseRest> update(
 			@RequestParam("picture") MultipartFile picture,
 			@RequestParam("name") String name,
